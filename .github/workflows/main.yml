@@ -1,21 +1,25 @@
-name: Deploy
-
 on: push
-
+name: Deploy to Heroku
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: ${{secrets.HEROKU_APP_NAME}} #Must be unique in Heroku
-          heroku_email: ${{secrets.HEROKU_EMAIL}}
-          usedocker: true
-          justlogin: true
-      - run: |
-          heroku container:login
-          heroku container:push web -a iris-ait
-          heroku container:release web -a iris-ait
-          
+    - uses: actions/checkout@master
+    - name: login
+      uses: actions/heroku@master
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      with:
+        args: container:login
+    - name: push
+      uses: actions/heroku@master
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      with:
+        args: container:push -a iris-ait web
+    - name: release
+      uses: actions/heroku@master
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      with:
+        args: container:release -a iris-ait web
