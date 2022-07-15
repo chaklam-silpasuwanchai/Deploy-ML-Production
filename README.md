@@ -1,3 +1,13 @@
+In this tutorial, you will be learning a full stack of machine learning applications
+
+- FastAPI
+- Docker
+- Heroku
+- Github actions
+- Prometheus
+- Grafana
+- Wandb
+
 ## Part 1: Deployment: Fast API + Docker
 
 Once we developed our ML model, we have to make it accessible by the public or at least the applications that require the prediction results.
