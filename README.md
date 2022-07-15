@@ -275,15 +275,6 @@ In the next lab, let's deploy to **Heroku**, so everyone in the world can use yo
 
 Let's deploy our app online.  We gonna use **Heroku** which is free but also support paid version.
 
-### Pre-requisites
-
-Make sure you have a completely separate repository holding the app that we did last time.
-
-Here is the separate repository of mine:
-
-https://github.com/chaklam-silpasuwanchai/iris-heroku-example
-
-
 ### 1. Install heroku cli 
 (You can do it in any directory)
 
