@@ -167,7 +167,7 @@ Go to `http://127.0.0.1:5000/docs`.  Then try input some values and see the resp
 
 You can also try only three values, and see the errors.
 
-![swagger UI](swagger.png)
+![swagger UI](figures/swagger.png)
 
 
 ### 7. Include Dependencies
@@ -298,7 +298,7 @@ Login to your heroku
 
 To check that you have really created the app, you can go to heroku website and check.
 
-![app](app.png)
+![app](figures/app.png)
 
 ### 4. Push and deploy
 
@@ -412,7 +412,7 @@ jobs:
 
 Go to your github repository, go to `Settings > Secrets`, set `HEROKU_API_KEY`.
 
-![secrets](secrets.png)
+![secrets](figures/secrets.png)
 
 
 For the api key, run `heroku authorizations:create` for production apps, use `heroku auth:token` for development (you can do this anywhere in the terminal).
@@ -434,7 +434,7 @@ Then you can push and commit as usual.
 
 You can check whether your `main.yml` is working by going to your github > actions.
 
-![actions](actions.png)
+![actions](figures/actions.png)
 
 Then try to go to `http://[app-name].herokuapp.com` to see the change.
 
