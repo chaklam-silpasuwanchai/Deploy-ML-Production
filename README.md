@@ -1,6 +1,6 @@
 # Deploying machine learning model to production
 
-In this tutorial, you will be learning a full stack of machine learning applications
+Out there, it is very difficult to find one tutorial covering the whole process.  Thus, in this tutorial, you will be learning of making a full stack of machine learning applications consisting of the following tools.  But please be reminded that learning tools are not as important as learning the process and the philosophy behind.
 
 - FastAPI
 - Docker
