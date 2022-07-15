@@ -1,4 +1,4 @@
-## Deployment: Fast API + Docker
+## Part 1: Deployment: Fast API + Docker
 
 Once we developed our ML model, we have to make it accessible by the public or at least the applications that require the prediction results.
 
@@ -259,7 +259,7 @@ Go to `192.168.99.100:8080/docs`.  Now you can do the same thing.
 
 In the next lab, let's deploy to **Heroku**, so everyone in the world can use your API.  Also let's try setup **CI/CD with github actions**.
 
-## Deployment: Heroku + Github Action
+## Part 2: Deployment: Heroku + Github Action
 
 Let's deploy our app online.  We gonna use **Heroku** which is free but also support paid version.
 
