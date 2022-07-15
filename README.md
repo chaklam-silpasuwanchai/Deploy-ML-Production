@@ -420,7 +420,7 @@ Go to your github repository, go to `Settings > Secrets`, set `HEROKU_API_KEY`.
 
 For the api key, run `heroku authorizations:create` for production apps, use `heroku auth:token` for development (you can do this anywhere in the terminal).
 
-![auth](auth.png)
+![auth](figures/auth.png)
 
 
 If you want to further tweak, see https://github.com/marketplace/actions/deploy-to-heroku
