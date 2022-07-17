@@ -2,6 +2,7 @@
 import ml.classifier as clf
 from fastapi import FastAPI, Body
 from joblib import load
+from prometheus_fastapi_instrumentator import Instrumentator
 
 #Iris data structure
 from schema.iris import Iris
@@ -24,10 +25,12 @@ async def get_prediction(iris:Iris):
     proba = clf.model.predict_proba(data).tolist() 
     return  {"prediction": prediction,
             "probability": proba}
-    
+
 @app.get("/")
 async def root():
     return {"message": "Yay!"}
+
+Instrumentator().instrument(app).expose(app)
     
 
 
