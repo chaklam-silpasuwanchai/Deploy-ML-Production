@@ -24,13 +24,11 @@ jobs:
             PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}  #get it from iris.pem
             HOSTNAME : ${{ secrets.HOSTNAME  }}           #your AWS IPv4 address
             USER_NAME : ${{ secrets.USER_NAME  }}         #"ubuntu"
-            
         run: |
+          pwd
           echo "$PRIVATE_KEY" > private_key.pem && chmod 600 private_key.pem
           ssh -o StrictHostKeyChecking=no -i private_key.pem ${USER_NAME}@${HOSTNAME}
-          
-          #Now we have got the access of EC2 and we will start the deploy
-          # cd /home/ubuntu/Deploy-ML-Production &&
-          git checkout main &&
-          git pull &&
-          sudo docker compose up -d
+            cd /home/ubuntu/Deploy-ML-Production &&
+            git checkout main &&
+            git pull &&
+            sudo docker compose up -d
