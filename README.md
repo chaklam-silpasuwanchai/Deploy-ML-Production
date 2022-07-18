@@ -24,7 +24,8 @@ So let's get started.
 
 ### Prerequisites
 
-- Install Docker
+- Install Docker Desktop for Mac/Windows or Docker CLI for Linux
+  - Supports latest `docker compose` not `docker-compose`
 - Install FastAPI (pip install fastapi)
 - Install uvicorn (pip install uvicorn)
 
@@ -173,7 +174,9 @@ We are actually done with the API.  Yes!  It's that simple.
 
 Run the server by:
 
-    uvicorn app:app --port 5000
+```shell
+uvicorn app:app --port 5000
+```
 
 Go to `http://127.0.0.1:5000/docs`.  Then try input some values and see the response by clicking **Try it out**.
 
@@ -233,23 +236,31 @@ We are almost there!!
 
 Build the docker image using 
 
-    docker build . -t iris
+```shell
+docker build . -t iris
+```
 
 This step takes a while to finish.
 
 Check whether you have successfully build the image
 
-    docker images
+```shell
+docker images
+```
 
 *Note: If you make any mistake, simply* `docker rmi [image_id]`*, and do the build again*.
 
 After the image is built, generate the docker container using 
 
-    docker run --name iris -p 8080:5000 iris
+```shell
+docker run --name iris -p 8080:5000 iris
+```
 
 Check whether your image is running
 
-    docker ps -a
+```shell
+docker ps -a
+```
 
 *Note: If you want to stop, do* `docker stop [image_id]`*; if you want to remove the container, do* `docker rm [image_id]`*.  Do these until you are satisfied :-)*
 
@@ -259,13 +270,9 @@ This exposes the application to the port 8080. Running the container also kicks 
 
 So let's try our API.
 
-First, I have to check my docker-machine ip by doing
+Go to `localhost:8080/docs`.  Now you can do the same thing.
 
-    docker-machine ip default
-
-Here, my ip is 192.168.99.100
-
-Go to `192.168.99.100:8080/docs`.  Now you can do the same thing.
+Note: if you are using docker machine, replace localhost with the IP address you found in `docker machine ip`
 
 ### Congrats!!
 
@@ -278,7 +285,9 @@ Let's deploy our app online.  We gonna use **Heroku** which is free but also sup
 ### 1. Install heroku cli 
 (You can do it in any directory)
 
-    brew tap heroku/brew && brew install heroku
+```shell
+brew tap heroku/brew && brew install heroku
+```
 
 If you are using other os, please refer to 
 
@@ -290,14 +299,18 @@ Login to your heroku
 
 (You can do it in any directory)
 
-    heroku login
-    heroku container:login
+```shell
+heroku login
+heroku container:login
+```
 
 ### 3. Create heroku app
 
 (You can do it in any directory; app name can be anything)
 
-    heroku create [app-name]
+```shell
+heroku create [app-name]
+```
 
 To check that you have really created the app, you can go to heroku website and check.
 
@@ -309,7 +322,9 @@ Before we do anything, we have to revise the port variable in `Dockerfile`.  Thi
 
 You can check the PORT variable via
 
-    heroku run printenv -a [app-name]
+```shell
+heroku run printenv -a [app-name]
+```
 
 Revise your `Dockerfile` to:
 
@@ -332,13 +347,17 @@ CMD uvicorn --host 0.0.0.0 --port $PORT app:app
 
 Now, let's push to heroku container register.  Go to the level where the Dockerfile is:
 
-    heroku container:push web -a [app-name]
+```shell
+heroku container:push web -a [app-name]
+```
 
 (Note:  The first time I did this, it freezes.  Not sure why, but once I restarted my mac, it works fine.)
 
 Then let's release to the public
 
-    heroku container:release web -a [app-name]    
+```shell
+heroku container:release web -a [app-name]  
+```
 
 Now go to 
 
@@ -360,8 +379,10 @@ async def root():
 
 Again, we just repeat the two steps:
 
-    heroku container:push web -a [app-name]
-    heroku container:release web -a [app-name]    
+```shell
+heroku container:push web -a [app-name]
+heroku container:release web -a [app-name]  
+```
 
 Go to 
 
@@ -375,17 +396,23 @@ Now, this process can be automated, which is called **continuous integration** o
 
 First, create a directory `.github` on the root level (at the same level as the root level of the repository)  (Note that the name cannot change because github action looks for this folder)
 
-    mkdir .github
+```shell
+mkdir .github
+```
 
 Then inside .github, create a directory called `workflows`
 
-    cd .github
-    mkdir workflows
+```shell
+cd .github
+mkdir workflows
+```
 
 Inside the workflows, create the `main.yml` file
 
-    cd workflows
-    touch main.yml
+```shell
+cd workflows
+touch main.yml
+```
 
 Inside this, we shall define our github action, i.e., everytime we commit and push new code, it should help us automatically deploy to heroku.  The code is:
 
@@ -452,8 +479,9 @@ In the next lab, let's try explore some monitoring tools.
 
 ### Pre-requisities
 
-    pip install docker-compose
-    pip install prometheus-fastapi-instrumentator
+```shell
+pip install prometheus-fastapi-instrumentator
+```
 
 ### 0. Make some folders
 
@@ -600,21 +628,27 @@ networks: #a common network where all the service resides
 
 Now that we set up the endpoints and the yml file, let's run the compose file (you don't have to run the Dockerfile first):
 
-    docker-compose up
+```shell
+docker compose up
+```
 
 ### 5. Check whether everything is running fine.
 
-For the IP, check your `docker-machine ip`.  Here my IP is 192.168.99.100
+Fast API: Go to http://localhost:8000/docs
 
-Fast API: Go to http://192.168.99.100:8000/docs
-
-Prometheus:  Go to http://192.168.99.100:9090
+Prometheus:  Go to http://localhost:9090
 
 Try put this in the execution box of prometheus:
 
 `http_requests_total`  which will list the total number of requests.
 
 If you want to try other metrics or add custom metrics, see https://github.com/trallnag/prometheus-fastapi-instrumentator
+
+We can shut down all services again:
+
+```shell
+docker compose down
+```
 
 ### 6. Grafana
 
@@ -705,7 +739,13 @@ networks:
         - subnet: 172.16.238.0/24
 ```
 
-Now, let's try going to http://192.168.99.100:3000
+Run
+
+```shell
+docker compose up
+```
+
+Now, go to http://localhost:3000
 
 username is `admin` and password is `pass@123` as you specified in `config.monitoring`.
 
@@ -723,8 +763,19 @@ Bad news....Heroku does not really support Prometheus nor Grafana out of the box
 
 First, sign up AWS services.  Here you would require a credit card.  If you don't have one, don't worry, you can just read the tutorial and do it later.
 
+There are three ways to do this: (1) through **docker context** but this way it forces us to use Fargate which is not free, (2) through **ecs-cli** but it is quite restrictive on the versions that docker compose supports, and (3) through **ec2** which is as simple as spawning a server.   We will be going to the EC2 route.
+<!-- 
+
+### 1. Installing the ECS CLI
+
+Basically, we just follow this:
+https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_CLI_installation.html
+
+For my mac, -->
+
+
 ### 1. Launch an instance
-Select the orange button to create a instance.  An instance is basically a server.
+Go to EC2 service.  Select the orange button to create a instance.  An instance is basically a server.
 
 <img width=600 src ="figures/1-launch.png">
 
@@ -766,45 +817,107 @@ Click on the instance ID (blue link) and will direct you to metadata of the serv
 
 <img width=600 src = "figures/7-summary.png">
 
-### 8. Connect to the instance
+### 8. Add incoming ports
+
+Scroll down and select the Security tab
+
+<img width=600 src = "figures/8-security.png">
+
+Select the blue link on the Security groups.  You will be directed to tabs on inbound ruels:
+
+<img width=600 src = "figures/9-incoming.png">
+
+Click Edit Inbound rules and add in two ports for prometheus and grafana, and save.  Note that we are not going to specify 8080, since we will be using port 80 for fastapi.
+
+<img width=600 src = "figures/10-ports.png">
+
+
+### 9. Connect to the instance
 
 Let's connect to the instance.  To get some guidelines how to do so, click "Connect" on the top right corner. 
 
-<img width=600 src = "figures/8-connect.png" /><br/><br/>
+<img width=600 src = "figures/11-connect.png" /><br/><br/>
 
 Select ssh client, which will tell us how to actually connect to this instance via ssh.  If you are using mac/linux, it's perfect.
 
-<img width=600 src = "figures/9-connect-ssh.png"><br/><br/>
+<img width=600 src = "figures/12-connect-ssh.png"><br/><br/>
 
 Based on the instruction, let's open a terminal.  Copy the `fastapi_key.pem` to any place where you wanna ssh into (it does not really matter where; for mine is simply Desktop.)
 
 At the same place where `fastapi_key.pem` resides, do
 
-      chmod 400 fastapi_key.pem
+```shell
+chmod 400 fastapi_key.pem
+```
 
 Connect to the instance (please use the address as your instance):
 
-      ssh -i "fastapi_key.pem" ubuntu@ec2-54-82-237-124.compute-1.amazonaws.com
+```shell
+ssh -i "fastapi_key.pem" ubuntu@ec2-54-82-237-124.compute-1.amazonaws.com
+```
 
 Type "yes" (if this is your first time)
 
 You will now be inside the ubuntu instance.  Yay!
 
-<img width=600 src = "figures/10-ubuntu.png"><br/><br/>
+<img width=600 src = "figures/13-ubuntu.png"><br/><br/>
 
-### 9. Update and install stuffs
+### 10. Update and install stuffs
 
 Let's treat this like a fresh ubuntu and start updating and installing the required stuffs.
 
-    #update our repository so we get access to all latest softwares
-    sudo apt-get update
+```shell
+#update our repository so we get access to all latest softwares
+sudo apt-get update
+```
 
-    
+Follow this https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04 and install the Docker and Docker Compose into the Ubuntu:
 
+```shell
+#install a few prerequisite packages which let apt use packages over HTTPS:
+sudo apt -y install apt-transport-https ca-certificates curl software-properties-common
 
+#adding the key to the official docker repo
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 
+#add the repo to apt
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
+#update again
+sudo apt update
 
+#Make sure you are about to install from the Docker repo instead of the default Ubuntu repo:
+apt-cache policy docker-ce
+
+#install docker
+sudo apt install -y docker-ce docker-compose-plugin
+```
+
+### 11. Run your application
+
+Clone your git repository:
+
+```shell
+git clone https://github.com/chaklam-silpasuwanchai/Deploy-ML-Production.git
+```
+
+Edit the `docker-compose.yaml` file and change the ports of Fastapi from 8000 to 80 like this:
+
+<img width=600 src = "figures/14-api_port.png"><br/><br/>
+
+Now run
+
+```shell
+sudo docker compose up
+```
+
+Recall your address of your AWS instance.  Go to that address, and you will see that everything is running (make sure you use http not https, as we are using port 80):
+
+<img width=600 src = "figures/15-running.png"><br/><br/>
+
+### Congrats!!  What's next?
+
+I haven't go back to reconfigure the github actions.  Try reconfigure so that everytime we commit, it changes  for us :-).  Good luck!
 
 ### References:
 
