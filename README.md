@@ -270,7 +270,7 @@ This exposes the application to the port 8000. Running the container also kicks 
 
 So let's try our API.
 
-Go to `localhost:8080/docs`.  Now you can do the same thing.
+Go to `localhost:8000/docs`.  Now you can do the same thing.
 
 Note: if you are using docker machine, replace localhost with the IP address you found in `docker machine ip`
 
@@ -827,7 +827,7 @@ Select the blue link on the Security groups.  You will be directed to tabs on in
 
 <img width=600 src = "figures/9-incoming.png">
 
-Click Edit Inbound rules and add in two ports for prometheus and grafana, and save.  Note that we are not going to specify 8080, since we will be using port 80 for fastapi.
+Click Edit Inbound rules and add in two ports for prometheus and grafana, and save.  Note that we are not going to specify 8000, since we will be using port 80 for fastapi.
 
 <img width=600 src = "figures/10-ports.png">
 
