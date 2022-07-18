@@ -30,8 +30,6 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key.pem ${USER_NAME}@${HOSTNAME} '
             cd /home/ubuntu/Deploy-ML-Production &&
             git checkout main &&
-            git fetch --all &&
-            git reset --hard origin/master &&
-            git pull origin master &&
-            sudo docker compose up -d
+            git pull &&
+            sudo docker compose up -d --build
           '
