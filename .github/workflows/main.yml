@@ -1,4 +1,4 @@
-ame: CI/CD counter app
+name: SSH to EC2 and docker compose
 
 on: push
 
