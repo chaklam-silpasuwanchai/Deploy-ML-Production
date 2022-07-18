@@ -21,9 +21,9 @@ jobs:
       - uses: actions/checkout@v2 
       - name: Deploy in EC2
         env:
-            PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}  #get it from iris.pem
-            HOSTNAME : ${{ secrets.HOSTNAME  }}           #your AWS IPv4 address
-            USER_NAME : ${{ secrets.USER_NAME  }}         #"ubuntu"
+          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}  #get it from iris.pem
+          HOSTNAME : ${{ secrets.HOSTNAME  }}           #your AWS IPv4 address
+          USER_NAME : ${{ secrets.USER_NAME  }}         #"ubuntu"
         run: |
           pwd
           echo "$PRIVATE_KEY" > private_key.pem && chmod 600 private_key.pem
