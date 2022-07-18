@@ -23,7 +23,7 @@ jobs:
             USER_NAME : ${{ secrets.USER_NAME  }}         #"ubuntu"
             
         run: |
-          echo "$PRIVATE_KEY" > private_key.pem && chmod 600 private_key
+          echo "$PRIVATE_KEY" > private_key.pem && chmod 600 private_key.pem
           ssh -o StrictHostKeyChecking=no -i private_key.pem ${USER_NAME}@${HOSTNAME}
           
             #Now we have got the access of EC2 and we will start the deploy
