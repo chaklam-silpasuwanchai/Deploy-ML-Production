@@ -253,7 +253,7 @@ docker images
 After the image is built, generate the docker container using 
 
 ```shell
-docker run --name iris -p 8080:5000 iris
+docker run --name iris -p 8000:5000 iris
 ```
 
 Check whether your image is running
@@ -264,7 +264,7 @@ docker ps -a
 
 *Note: If you want to stop, do* `docker stop [image_id]`*; if you want to remove the container, do* `docker rm [image_id]`*.  Do these until you are satisfied :-)*
 
-This exposes the application to the port 8080. Running the container also kicks off the default command we set earlier — which effectively starts up the app!
+This exposes the application to the port 8000. Running the container also kicks off the default command we set earlier — which effectively starts up the app!
 
 ### 10. Use the API
 
