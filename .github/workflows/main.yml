@@ -27,9 +27,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key.pem ${USER_NAME}@${HOSTNAME}
           
             #Now we have got the access of EC2 and we will start the deploy
-            pwd &&
-            ls -a
             # cd /home/ubuntu/Deploy-ML-Production &&
-            # git checkout main &&
-            # git pull &&
-            # sudo docker compose up
+            git checkout main &&
+            git pull &&
+            sudo docker compose up
