@@ -25,7 +25,7 @@ Out there, it is very difficult to find one tutorial covering the whole process.
     - [4. Define the schema](#4-define-the-schema)
     - [5. Define the router](#5-define-the-router)
     - [6. Try run the uvicorn server to see how the API is](#6-try-run-the-uvicorn-server-to-see-how-the-api-is)
-    - [7. Include Dependencies](#7-include-dependencies)
+    - [7. Include dependencies](#7-include-dependencies)
     - [8. Dockerfile](#8-dockerfile)
     - [9. Build and run the container](#9-build-and-run-the-container)
     - [10. Use the API](#10-use-the-api)
@@ -42,12 +42,12 @@ Out there, it is very difficult to find one tutorial covering the whole process.
     - [Pre-requisities](#pre-requisities)
     - [0. Make some folders](#0-make-some-folders)
     - [1. Expose endpoints for prometheus](#1-expose-endpoints-for-prometheus)
-    - [2. Add prometheus-fastapi-instrumentator to your requirement.txt](#2-add-prometheus-fastapi-instrumentator-to-your-requirementtxt)
+    - [2. Add `prometheus-fastapi-instrumentator` to your `requirement.txt`](#2-add-prometheus-fastapi-instrumentator-to-your-requirementtxt)
     - [3. Define the configuration - `prometheus.yml` under the directory `prometheus`](#3-define-the-configuration---prometheusyml-under-the-directory-prometheus)
     - [4. Define the docker compose file](#4-define-the-docker-compose-file)
-    - [5. Check whether everything is running fine.](#5-check-whether-everything-is-running-fine)
+    - [5. Check whether everything is running fine](#5-check-whether-everything-is-running-fine)
     - [6. Grafana](#6-grafana)
-    - [7. Modify the docker compose file to include grafana:](#7-modify-the-docker-compose-file-to-include-grafana)
+    - [7. Modify the docker compose file to include grafana](#7-modify-the-docker-compose-file-to-include-grafana)
   - [Part 4: Deploy to AWS EC2](#part-4-deploy-to-aws-ec2)
     - [1. Launch an instance](#1-launch-an-instance)
     - [2. Name and os](#2-name-and-os)
@@ -97,7 +97,6 @@ FastAPI is the most popular go-to framework for building robust and high-perform
 - Does not come with a view component;  often used together with React/Vue/Angular/HTML for frontend
 - Allows data validation(e.g., maximum length, type)
 - Supports error messages
-- Default UI like Postman
 
 In this example, we will only be using two HTTP methods:
 
@@ -238,7 +237,7 @@ You can also try only three values, and see the errors.
 ![swagger UI](figures/swagger.png)
 
 
-### 7. Include Dependencies
+### 7. Include dependencies
 
 Let's prepare ourselve containerize our app.  But before that, let's create a file containing all our dependencies.
 
@@ -572,7 +571,7 @@ Instrumentator().instrument(app).expose(app)  #you can put this at the last line
 
 For more details how to use this instrumentator, read https://github.com/trallnag/prometheus-fastapi-instrumentator
 
-### 2. Add prometheus-fastapi-instrumentator to your requirement.txt
+### 2. Add `prometheus-fastapi-instrumentator` to your `requirement.txt`
 
 Now, my `requirement.txt` looks like this:
 
@@ -685,7 +684,7 @@ Now that we set up the endpoints and the yml file, let's run the compose file (y
 docker compose up
 ```
 
-### 5. Check whether everything is running fine.
+### 5. Check whether everything is running fine
 
 Fast API: Go to http://localhost:8000/docs
 
@@ -735,7 +734,7 @@ Create a `config.monitoring` file inside the grafana directory:
     GF_SECURITY_ADMIN_PASSWORD=pass@123
     GF_USERS_ALLOW_SIGN_UP=false
 
-### 7. Modify the docker compose file to include grafana:
+### 7. Modify the docker compose file to include grafana
 
 ```yaml
 version: "3.8"
@@ -817,15 +816,6 @@ Bad news....Heroku does not really support Prometheus nor Grafana out of the box
 First, sign up AWS services.  Here you would require a credit card.  If you don't have one, don't worry, you can just read the tutorial and do it later.
 
 There are three ways to do this: (1) through **docker context** but this way it forces us to use Fargate which is not free, (2) through **ecs-cli** but it is quite restrictive on the versions that docker compose supports, and (3) through **ec2** which is as simple as spawning a server.   We will be going to the EC2 route.
-<!-- 
-
-### 1. Installing the ECS CLI
-
-Basically, we just follow this:
-https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_CLI_installation.html
-
-For my mac, -->
-
 
 ### 1. Launch an instance
 Go to EC2 service.  Select the orange button to create a instance.  An instance is basically a server.
