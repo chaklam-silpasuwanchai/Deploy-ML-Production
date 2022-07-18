@@ -10,6 +10,59 @@ Out there, it is very difficult to find one tutorial covering the whole process.
 - Grafana
 - AWS EC2
 
+## Table of contents
+
+- [Deploying machine learning model to production](#deploying-machine-learning-model-to-production)
+  - [Table of contents](#table-of-contents)
+  - [Part 1: Fast API + Docker](#part-1-fast-api--docker)
+    - [Prerequisites](#prerequisites)
+    - [API](#api)
+    - [FastAPI](#fastapi)
+    - [Let's get started](#lets-get-started)
+    - [1. Create a new directory called `ml`.](#1-create-a-new-directory-called-ml)
+    - [2. Train a simple classifier](#2-train-a-simple-classifier)
+    - [3. Define a placeholder classifier](#3-define-a-placeholder-classifier)
+    - [4. Define the schema](#4-define-the-schema)
+    - [5. Define the router](#5-define-the-router)
+    - [6. Try run the uvicorn server to see how the API is](#6-try-run-the-uvicorn-server-to-see-how-the-api-is)
+    - [7. Include Dependencies](#7-include-dependencies)
+    - [8. Dockerfile](#8-dockerfile)
+    - [9. Build and run the container](#9-build-and-run-the-container)
+    - [10. Use the API](#10-use-the-api)
+    - [Congrats!!](#congrats)
+  - [Part 2: Heroku + Github Action](#part-2-heroku--github-action)
+    - [1. Install heroku cli](#1-install-heroku-cli)
+    - [2. Login](#2-login)
+    - [3. Create heroku app](#3-create-heroku-app)
+    - [4. Push and deploy](#4-push-and-deploy)
+    - [5. Changing app](#5-changing-app)
+    - [6. Continuous integration with Github action](#6-continuous-integration-with-github-action)
+    - [Congrats!](#congrats-1)
+  - [Part 3: Prometheus + Grafana](#part-3-prometheus--grafana)
+    - [Pre-requisities](#pre-requisities)
+    - [0. Make some folders](#0-make-some-folders)
+    - [1. Expose endpoints for prometheus](#1-expose-endpoints-for-prometheus)
+    - [2. Add prometheus-fastapi-instrumentator to your requirement.txt](#2-add-prometheus-fastapi-instrumentator-to-your-requirementtxt)
+    - [3. Define the configuration - `prometheus.yml` under the directory `prometheus`](#3-define-the-configuration---prometheusyml-under-the-directory-prometheus)
+    - [4. Define the docker compose file](#4-define-the-docker-compose-file)
+    - [5. Check whether everything is running fine.](#5-check-whether-everything-is-running-fine)
+    - [6. Grafana](#6-grafana)
+    - [7. Modify the docker compose file to include grafana:](#7-modify-the-docker-compose-file-to-include-grafana)
+  - [Part 4: Deploy to AWS EC2](#part-4-deploy-to-aws-ec2)
+    - [1. Launch an instance](#1-launch-an-instance)
+    - [2. Name and os](#2-name-and-os)
+    - [3. Instance type and key pair](#3-instance-type-and-key-pair)
+    - [4. Network setting](#4-network-setting)
+    - [5. Launch the instance](#5-launch-the-instance)
+    - [6. Check your instance](#6-check-your-instance)
+    - [7. Check the server address](#7-check-the-server-address)
+    - [8. Add incoming ports](#8-add-incoming-ports)
+    - [9. Connect to the instance](#9-connect-to-the-instance)
+    - [10. Update and install stuffs](#10-update-and-install-stuffs)
+    - [11. Run your application](#11-run-your-application)
+    - [Congrats!!  What's next?](#congrats--whats-next)
+    - [References](#references)
+
 ## Part 1: Fast API + Docker
 
 Once we developed our ML model, we have to make it accessible by the public or at least the applications that require the prediction results.
@@ -923,7 +976,7 @@ For your reference, look at the new `.github/workflows/main.yml` for some hints 
 
 Good luck!
 
-### References:
+### References
 
 - https://github.com/Kludex/fastapi-prometheus-grafana
 
