@@ -23,11 +23,11 @@ jobs:
             USER_NAME : ${{ secrets.USER_NAME  }}         #"ubuntu"
             
         run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
+          echo "$PRIVATE_KEY" > private_key.pem && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ${USER_NAME}@${HOSTNAME}
           
-            #Now we have got the access of EC2 and we will start the deploy .
-            cd /home/ubuntu/Deploy-ML-Production/ &&
+            #Now we have got the access of EC2 and we will start the deploy
+            cd /home/ubuntu/Deploy-ML-Production &&
             git checkout main &&
             git pull &&
             sudo docker compose up
