@@ -8,7 +8,7 @@ Out there, it is very difficult to find one tutorial covering the whole process.
 - Github actions
 - Prometheus
 - Grafana
-- Wandb
+- AWS EC2
 
 ## Part 1: Fast API + Docker
 
@@ -715,9 +715,95 @@ What is cool here is that even you restart your docker, all dashboards will stil
 
 Read more here:  https://grafana.com/tutorials/grafana-fundamentals/?utm_source=grafana_gettingstarted
 
-### 8. Deploy to Heroku
+Next part, we shall deploy to AWS EC2.
 
-Bad news....Heroku does not really support Prometheus nor Grafana out of the box.
+## Part 4: Deploy to AWS EC2
+
+Bad news....Heroku does not really support Prometheus nor Grafana out of the box.   It can be done but requires way too much of effort.  Thus we gonna try something easier, i.e., AWS EC2.
+
+First, sign up AWS services.  Here you would require a credit card.  If you don't have one, don't worry, you can just read the tutorial and do it later.
+
+### 1. Launch an instance
+Select the orange button to create a instance.  An instance is basically a server.
+
+<img width=600 src ="figures/1-launch.png">
+
+### 2. Name and os
+
+- **Name**: set any name
+- **OS Images**:  choose Ubuntu
+  
+<img width=600 src ="figures/2-name-os.png">
+
+### 3. Instance type and key pair
+
+- **Instance type**: Choose *t2.micro*; it's free for 1 year (but don't forget to turn this off, or you will be charged after a year!)
+- **Key pair**: Create a new key-pair;  this will be used to ssh to the instance.   Any name is fine.
+
+<img width=600 src ="figures/3-key.png">
+
+### 4. Network setting
+
+Tick all ssh, http, and https so our instance can be accessed from all three ways.
+
+<img width=600 src ="figures/4-network.png">
+
+### 5. Launch the instance
+
+Once done, select Launch Instance (the orange button on the bottom right).
+
+<img width=600 src ="figures/5-launch.png">
+
+### 6. Check your instance
+
+Go back to the home menu of instance, and you should see your instance initializing.  For now, please wait until it is ready.
+
+<img width=600 src ="figures/6-check.png">
+
+### 7. Check the server address
+
+Click on the instance ID (blue link) and will direct you to metadata of the server.   Try look around.  Take note of the server address. 
+
+<img width=600 src = "figures/7-summary.png">
+
+### 8. Connect to the instance
+
+Let's connect to the instance.  To get some guidelines how to do so, click "Connect" on the top right corner. 
+
+<img width=600 src = "figures/8-connect.png" /><br/><br/>
+
+Select ssh client, which will tell us how to actually connect to this instance via ssh.  If you are using mac/linux, it's perfect.
+
+<img width=600 src = "figures/9-connect-ssh.png"><br/><br/>
+
+Based on the instruction, let's open a terminal.  Copy the `fastapi_key.pem` to any place where you wanna ssh into (it does not really matter where; for mine is simply Desktop.)
+
+At the same place where `fastapi_key.pem` resides, do
+
+      chmod 400 fastapi_key.pem
+
+Connect to the instance (please use the address as your instance):
+
+      ssh -i "fastapi_key.pem" ubuntu@ec2-54-82-237-124.compute-1.amazonaws.com
+
+Type "yes" (if this is your first time)
+
+You will now be inside the ubuntu instance.  Yay!
+
+<img width=600 src = "figures/10-ubuntu.png"><br/><br/>
+
+### 9. Update and install stuffs
+
+Let's treat this like a fresh ubuntu and start updating and installing the required stuffs.
+
+    #update our repository so we get access to all latest softwares
+    sudo apt-get update
+
+    
+
+
+
+
 
 
 ### References:
