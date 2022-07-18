@@ -1,19 +1,37 @@
-name: Deploy
+ame: CI/CD counter app
 
-on: push
+on:
+  push:
+    branches: [ master ]
 
 jobs:
+#First we will see the application build or not , then we will deploy in EC2
   build:
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}} #must be set in github > settings > secrets
-          heroku_app_name: "iris-ait" #Must be unique in Heroku
-          heroku_email: "chaklam072@gmail.com"
-          justlogin: true
-      - run: |
-          heroku container:login
-          heroku container:push web -a iris-ait
-          heroku container:release web -a iris-ait
+    - uses: actions/checkout@v2
+    
+    - name: Build the docker_compose
+      run: docker compose up
+
+  Deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2 
+      - name: Deploy in EC2
+        env:
+            PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
+            HOSTNAME : ${{ secrets.HOSTNAME  }}
+            USER_NAME : ${{ secrets.USER_NAME  }}
+            
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+          
+            #Now we have got the access of EC2 and we will start the deploy .
+            cd Deploy-ML-Production/ &&
+            git pull &&
+            sudo docker compose up

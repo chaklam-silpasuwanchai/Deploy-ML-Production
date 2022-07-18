@@ -919,6 +919,13 @@ Recall your address of your AWS instance.  Go to that address, and you will see 
 
 I haven't go back to reconfigure the github actions.  Try reconfigure so that everytime we commit, it changes  for us :-).  Good luck!
 
+### Part 5: Revisit Github action
+
+ssh-keygen -t rsa
+
+Give a tick in “Allow write access ”. We need this so that we do not need to give GitHub username and password every time we pull from EC2 instance . Now clone the repository using SSH .
+
+
 ### References:
 
 - https://github.com/Kludex/fastapi-prometheus-grafana

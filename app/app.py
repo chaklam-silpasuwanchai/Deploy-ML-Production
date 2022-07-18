@@ -28,7 +28,7 @@ async def get_prediction(iris:Iris):
 
 @app.get("/")
 async def root():
-    return {"message": "Yay!"}
+    return {"message": "Yay! Change?"}
 
 Instrumentator().instrument(app).expose(app)
     

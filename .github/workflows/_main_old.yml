@@ -1,0 +1,19 @@
+name: Deploy
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}} #must be set in github > settings > secrets
+          heroku_app_name: "iris-ait" #Must be unique in Heroku
+          heroku_email: "chaklam072@gmail.com"
+          justlogin: true
+      - run: |
+          heroku container:login
+          heroku container:push web -a iris-ait
+          heroku container:release web -a iris-ait
