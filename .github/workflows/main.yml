@@ -2,7 +2,14 @@ name: SSH to EC2 and docker compose
 
 on: push
 
-jobs:   
+jobs:
+#First we will see the application build or not , then we will deploy in EC2
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
   Deploy:
     needs: build
     runs-on: ubuntu-latest
