@@ -9,7 +9,6 @@ Out there, it is very difficult to find one tutorial covering the whole process.
 - Prometheus
 - Grafana
 - AWS EC2
-- AWS Lambda
 
 ## Table of contents
 
@@ -61,9 +60,7 @@ Out there, it is very difficult to find one tutorial covering the whole process.
     - [9. Connect to the instance](#9-connect-to-the-instance)
     - [10. Update and install stuffs](#10-update-and-install-stuffs)
     - [11. Run your application](#11-run-your-application)
-    - [Congrats!!  What's next?](#congrats--whats-next)
-  - [Part 5: AWS Lambda](#part-5-aws-lambda)
-    - [1. Wrap our FastAPI with Mangum](#1-wrap-our-fastapi-with-mangum)
+    - [Congrats!!  What's next?  AWS Lambda](#congrats--whats-next--aws-lambda)
     - [References](#references)
 
 ## Part 1: Fast API + Docker
@@ -961,41 +958,15 @@ Recall your address of your AWS instance.  Go to that address, and you will see 
 
 <img width=600 src = "figures/15-running.png"><br/><br/>
 
-### Congrats!!  What's next?
+### Congrats!!  What's next?  AWS Lambda
 
 Try reconfigure so that everytime we commit, it changes  for us :-).  
 
 For your reference, look at the new `.github/workflows/main.yml` for some hints how to do so.
 
-## Part 5: AWS Lambda
+Another thing you may want to do is to instead deploy to **AWS Lambda** which offers function as a service.  This would dramatically reduce our cost, since the service is only short-lived.
 
-Using EC2 is really expensive, leaving it on the whole time.  What we can do is deploying our FastAPI using AWS Lambda, which offers function as a service.
-
-What about grafana and prometheus?  There are two solutions here, first is to forget about them, and instead use logging built-in lambda.  Second is to deploy grafana and prometheus in a separate EC2 instance and let our lambda send metrics to both of them.
-
-But firstly, let us worry about deploying our FastAPI to Lambda, which is pretty easy.
-
-### 1. Wrap our FastAPI with Mangum
-
-First thing, AWS Lambda does not really understand FastAPI which is an ASGI interface.  
-
-We gonna use `Mangum` which is an adapter for running ASGI applications in AWS Lambda (https://mangum.io)
-
-Go to your `app.py`.  Change to:
-
-```python
-#define the fastapi
-from mangum import Mangum
-
-app = FastAPI(title="Iris Prediction API",
-              description="API for Iris Prediction",
-              version="1.0")
-
-handler = Mangum(app)
-```
-
-
-Good luck!
+Good luck exploring!
 
 ### References
 

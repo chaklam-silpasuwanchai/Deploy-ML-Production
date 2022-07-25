@@ -6,3 +6,4 @@ uvicorn==0.18.2
 joblib==0.17.0
 pydantic==1.9.1
 prometheus-fastapi-instrumentator
+mangum
