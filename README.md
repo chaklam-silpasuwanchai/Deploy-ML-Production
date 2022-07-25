@@ -977,7 +977,22 @@ But firstly, let us worry about deploying our FastAPI to Lambda, which is pretty
 
 ### 1. Wrap our FastAPI with Mangum
 
-First thing, AWS Lambda does not really understand 
+First thing, AWS Lambda does not really understand FastAPI which is an ASGI interface.  
+
+We gonna use `Mangum` which is an adapter for running ASGI applications in AWS Lambda (https://mangum.io)
+
+Go to your `app.py`.  Change to:
+
+```python
+#define the fastapi
+from mangum import Mangum
+
+app = FastAPI(title="Iris Prediction API",
+              description="API for Iris Prediction",
+              version="1.0")
+
+handler = Mangum(app)
+```
 
 
 Good luck!

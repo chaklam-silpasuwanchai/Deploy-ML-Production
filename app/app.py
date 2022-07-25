@@ -3,6 +3,7 @@ import ml.classifier as clf
 from fastapi import FastAPI, Body
 from joblib import load
 from prometheus_fastapi_instrumentator import Instrumentator
+from mangum import Mangum
 
 #Iris data structure
 from schema.iris import Iris
@@ -11,6 +12,8 @@ from schema.iris import Iris
 app = FastAPI(title="Iris Prediction API",
               description="API for Iris Prediction",
               version="1.0")
+
+handler = Mangum(app)
 
 #when the app start, load the model
 @app.on_event('startup')
